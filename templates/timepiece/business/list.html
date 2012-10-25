@@ -1,0 +1,53 @@
+{% extends "timepiece/business/base.html" %}
+{% load bootstrap_toolkit %}
+{% load url from future %}
+
+{% block title %}Businesses{% endblock %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12">
+            <h2>Businesses</h2>
+            <ul class="unstyled subnav">
+                {% if perms.timepiece.add_business %}
+                    <li><a href='{% url 'create_business' %}'>Create Business</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <form class='form-inline' accept-charset='UTF-8' method='get' action=''>
+                {{ form|as_bootstrap:"inline" }}
+                <button type='submit' class='btn' name='submit'>Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            {% load pagination_tags %}
+            {% autopaginate businesses %}
+
+            {% paginate %}
+            <table class='table table-bordered table-striped table-condensed'>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for business in businesses %}
+                        <tr>
+                            <td><a href='{% url 'view_business' business.pk %}'>{{ business.name }}</a></td>
+                            <td>{{ business.description|truncatewords:8 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% paginate %}
+        </div>
+    </div>
+{% endblock %}

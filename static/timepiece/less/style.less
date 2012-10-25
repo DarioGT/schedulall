@@ -1,0 +1,610 @@
+// Includes
+@import "../../bootstrap/less/bootstrap.less";
+@import "../../bootstrap/less/responsive.less";
+
+// Replace the 2.0.4 mixin with the 2.1.0 WIP mixin
+// This gives us an offset for fluid layouts
+// ref: https://github.com/twitter/bootstrap/pull/3764/
+@import "fluidoffsetmixin.less";
+
+// Variables & Mixins
+@white: #FFFFFF;
+@lightgray: #DDDDDD;
+@blue: #049CDB;
+@lightblue: lighten(@blue, 20%);
+@tableBackgroundAccent: #E6E6E6;
+@tableBorder: #DDDDDD;
+
+.bg-icon(@icon) {
+    background: url('../../images/icons/@{icon}') no-repeat;
+}
+
+.list-icon(@icon) {
+    list-style-image: url('../../images/icons/@{icon}');
+}
+
+.word-wrap(@wrap) {
+    word-wrap: normal;
+    word-break: normal;
+    -ms-word-break: normal;
+}
+
+.word-wrap(@wrap) when (@wrap = true) {
+    word-wrap: break-word;
+    word-break: break-all;
+    -ms-word-break: break-all;
+}
+
+body {
+    /*****************************************
+     * Start HTML entities
+     *****************************************/
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0px 0px 6px 0px;
+    }
+
+    h2 {
+        border-bottom: 1px solid #593E1A;
+
+        &.skinny {
+            width: 60%;
+        }
+    }
+
+    textarea {
+        width: 100%;
+        height: 10em;
+    }
+
+    caption {
+        font-weight: bold;
+    }
+
+    img.icon {
+        padding-right: 0.5em;
+        height: 16px;
+        width: 16px;
+    }
+
+    ul {
+        &.subnav {
+            margin-top: 3px;
+
+            li {
+                display: inline;
+                border-left: 1px solid @lightgray;
+                padding: 0px 10px;
+
+                &:first-child {
+                    padding-left: 0px;
+                    border-left: 0px;
+                }
+            }
+        }
+    }
+
+    span {
+        &.individual {
+            .bg-icon('user.png');
+            padding-left: 20px;
+        }
+
+        &.business {
+            .bg-icon('building.png');
+            padding-left: 20px;
+        }
+
+        &.project {
+            .bg-icon('report.png');
+            padding-left: 20px;
+        }
+    }
+
+    ul {
+        &.people {
+            li {
+                &.add {
+                    .list-icon('user_add.png');
+                    padding-top: 1em;
+                }
+
+                .list-icon('user.png');
+            }
+        }
+
+        &.businesses {
+            li {
+                .list-icon('building.png');
+                padding: 0.2em;
+            }
+        }
+
+        &.projects {
+            li {
+                .list-icon('report.png');
+                padding: 0.2em;
+            }
+        }
+    }
+
+    table {
+        @blue: #BBBFDD;
+        @lightblue: #DFDFEF;
+        @lightgray: #AAAAAA;
+
+        tr {
+
+            td {
+                &.break {
+                    .word-wrap(true);
+                }
+            }
+
+            &.ledger_header th {
+                background-color: @lightblue !important;
+            }
+
+            &.before_from_date {
+                color: @lightgray;
+            }
+
+            &.daily_total {
+                background-color: @lightblue !important;
+                border-color: @blue;
+
+                td {
+                    border-right-color: @blue;
+                    border-left-color: @blue;
+                }
+            }
+
+            &.weekly_total {
+                background-color: @blue !important;
+            }
+        }
+
+        &.table-striped-vertical {
+            th, td {
+                border-bottom: 1px solid @tableBorder;
+            }
+
+            // Double border in the body
+            tbody {
+                tr:last-child {
+                    th, td {
+                        border-bottom: 0px;
+                    }
+                }
+            }
+
+            th:nth-child(even), td:nth-child(even) {
+                background-color: @tableBackgroundAccent;
+            }
+        }
+    }
+
+    form {
+        .field-wrapper {
+            padding: 1em 0.1em 0.5em 0.1em;
+
+            label {
+                font-weight: bold;
+            }
+        }
+    }
+
+
+    /*****************************************
+     * End HTML entities
+     *****************************************/
+
+
+    /*****************************************
+     * Start general site-wide classes/ids
+     *****************************************/
+
+    #content.container-fluid {
+        width: 92%;
+        margin: 60px auto;
+
+        @media (max-width: 979px) {
+            margin: 20px auto;
+            width: 97%;
+        }
+    }
+
+    .right {
+        float: right;
+    }
+
+    .scroll {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .dataTable {
+        width: 100%;
+
+        td {
+            background-color: #FF0000;
+            color: #FFFFFF;
+        }
+
+        td:empty {
+            background-color: #FFFFFF;
+        }
+
+        td:first-child {
+            background-color: #FFFFFF;
+            color: #000000;
+            min-width: 170px;
+        }
+
+        tr:first-child, tr:nth-last-child(2) {
+            td {
+                min-width: 75px;
+                color: #000000;
+                background-color: #FFFFFF;
+            }
+        }
+    }
+
+    .inline {
+        display: inline;
+    }
+
+    .paste:hover {
+        cursor: hand;
+        cursor: pointer;
+    }
+
+    .popover-inner {
+        width: auto;
+
+        .popover-content {
+            width: auto;
+        }
+    }
+
+    .popover-toggle:hover {
+        cursor: hand;
+        cursor: pointer;
+    }
+
+    .chart {
+        width: 100%;
+        min-height: 500px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    #active-popover {
+        .popover-title {
+            display: none;
+        }
+    }
+
+    #ui-datepicker-div {
+        font-size: 80%;
+    }
+
+    /*****************************************
+     * End general site-wide classes
+     *****************************************/
+
+    /*****************************************
+     * Start specific body ids
+     *****************************************/
+
+    &#dashboard {
+        .active.paused, #active-entries .paused {
+            color: #999;
+        }
+    }
+
+    &#paste {
+        pre {
+            white-space: pre;
+        }
+
+        textarea {
+            width: 100%;
+            height: 25em;
+            font-family: 'Monaco', 'Nimbus Mono L', 'DejaVu Sans Mono', 'Courier New';
+        }
+    }
+
+    &#billable-hours {
+        .filter {
+            margin: 0px 0px 20px;
+
+            label.control-label, p > label {
+                font-size: 1.5em;
+                font-weight: bold;
+            }
+
+            ul {
+                list-style-type: none;
+            }
+
+            span {
+                font-size: 0.6em;
+                font-weight: normal;
+                float: right;
+                margin-right: 20px;
+            }
+
+            .control-group {
+                display: inline-block;
+                vertical-align: top;
+                width: 22%;
+                // height: 200px;
+                overflow: auto;
+                margin-right: 15px;
+
+                &.people {
+                    width: 25%;
+
+                    ul li {
+                        display: inline;
+                        float: left;
+                        width: 50%;
+                    }
+
+                    ul li:nth-child(even) {
+                        float: right;
+                    }
+                }
+
+                &.group-by {
+                    width: 10%;
+                }
+            }
+
+            .dates {
+                div {
+                    display: block;
+                    width: auto;
+                    height: auto;
+                }
+
+                input {
+                    width: 100px;
+                    margin: 0px 10px 0px 0px;
+                }
+            }
+        }
+    }
+
+    &#project-hours {
+        form.right {
+            margin-left: 10px;
+        }
+
+        .hours {
+            text-align: center !important;
+        }
+    }
+
+    /*****************************************
+     * End specific body ids
+     *****************************************/
+
+    /*****************************************
+     * Start content
+     *****************************************/
+
+    #content {
+        margin-top: 60px;
+
+        /*****************************************
+         * Start general content
+         *****************************************/
+
+        form#date-filter table {
+            margin: 0;
+        }
+
+        form#date-filter input[name=from_date],
+        form#date-filter input[name=date],
+        form#date-filter input[name=to_date] {
+            width: 7em;
+        }
+
+        #cal_wrapper {
+            width: 900px;
+            margin: 10px 0px;
+        }
+
+        .cal_wrapper {
+            th {
+                padding-right: 4px;
+            }
+
+            .cal {
+                float: left;
+                padding: 18px;
+
+                &.left, &.right {
+                    background-color: #EDEDFF;
+                }
+
+                &.middle {
+                    background-color: #DFDFEF;
+                }
+            }
+        }
+
+        ul.date-filters {
+            margin: 0px 0px 1em;
+        }
+
+        ul.date-filters li {
+            list-style-type: none;
+        }
+
+        ul.date-filters ul {
+            margin: 0.2em 0;
+            font-size: 93%;
+        }
+
+        ul.date-filters ul li {
+            display: inline;
+            border-left: 1px solid lightgray;
+            padding: 0 0.2em 0 0.5em;
+        }
+
+        ul.date-filters ul li:first-child {
+            padding: 0 0.2em 0 0;
+            border-left: none;
+        }
+
+        ul.date-filters ul li.label {
+            padding: 1px 3px;
+            font-weight: bold;
+        }
+
+        ul.actions {
+            margin: 0;
+            font-size: 93%;
+        }
+
+        ul.actions li {
+            display: inline;
+            border-left: 1px solid lightgray;
+            padding: 0 0.2em 0 0.5em;
+        }
+
+        ul.actions li:first-child {
+            padding: 0 0.2em 0 0;
+            border-left: none;
+        }
+
+        .row {
+            margin-top: 13px;
+        }
+
+        .active {
+            color: inherit;
+        }
+
+        .hours {
+            text-align: right;
+        }
+
+        /*****************************************
+         * End general content
+         *****************************************/
+
+
+        /*****************************************
+         * Start Ledger
+         *****************************************/
+
+        .totals {
+            border: 0px;
+            empty-cells: hide;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+
+            td {
+                border-bottom: 1px solid #DDD;
+                empty-cells: show;
+                &:last-child {
+                    border-right: 1px solid #DDD;
+                }
+            }
+        }
+
+        #full-timesheet {
+            width: 100%;
+            min-width: 800px;
+
+            table {
+                width: 100%;
+                table-layout: fixed;
+
+                th, td {
+                    width: 10%;
+                    overflow-x: auto;
+
+                    &.comments {
+                        width: 25%;
+                    }
+
+                    &.time {
+                        width: 7%;
+                        .word-wrap(false);
+                    }
+
+                    &.aux {
+                        width: 5%;
+                    }
+
+                    &.project {
+                        width: 13%;
+                    }
+
+                    &.activity {
+                        width: 15%;
+                    }
+                }
+            }
+        }
+
+        #hourly-summary {
+            table {
+                width: 100%;
+                table-layout: fixed;
+
+                th, td {
+                    &.billable, &.non-billable {
+                        width: 20%;
+                    }
+
+                    &.total {
+                        width: 15%;
+                    }
+                }
+            }
+        }
+
+        /*****************************************
+         * End Ledger
+         *****************************************/
+
+        /*****************************************
+         * Start Reports
+         *****************************************/
+
+        ul {
+            &.reports {
+                font-size: 110%;
+
+                li {
+                    .list-icon('chart_bar.png');
+                    margin-bottom: 0.2em;
+
+                }
+            }
+
+            &.parent {
+                ul {
+                    list-style-type: none;
+                }
+            }
+        }
+
+        /*****************************************
+         * End Reports
+         *****************************************/
+    }
+
+    /*****************************************
+     * End content
+     *****************************************/
+}

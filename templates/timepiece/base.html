@@ -1,0 +1,85 @@
+{% load url from future %}
+<!doctype html>
+<html>
+<head>
+    <title>Timepiece: {% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ STATIC_URL }}images/icons/clock.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    {% block javascript %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+        <script src="{{ STATIC_URL }}timepiece/js/widgets.js"></script>
+        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-dropdown.js"></script>
+        {% if perms.timepiece.view_business %}
+            {{ quick_search_form.media.js }}
+            <script type="text/javascript" src="{{ STATIC_URL }}timepiece/js/quicksearch.js"></script>
+        {% endif %}
+        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-alert.js"></script>
+        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-collapse.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap-tooltip.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap-popover.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}selectable/js/jquery.dj.selectable.js"></script>
+    {% endblock javascript %}
+
+    {% block extrajs %}
+    {% endblock extrajs %}
+
+    {% block css %}
+        <link type="text/css" rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" />
+    {% endblock %}
+
+    {% block staticfiles %}
+        {% load compress %}
+        {% if debug %}
+            <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}timepiece/less/style.less" />
+            <script src="{{ STATIC_URL }}timepiece/js/less-1.3.0.min.js"></script>
+        {% else %}
+            {% compress css %}
+                <link rel="stylesheet" type="text/less" href="{{ STATIC_URL }}timepiece/less/style.less" />
+            {% endcompress %}
+        {% endif %}
+    {% endblock staticfiles %}
+
+    {% block extracss %}
+    {% endblock %}
+</head>
+
+<body id="{% block bodyid %}{% endblock bodyid %}">
+    {% block navigation %}
+        {% include "timepiece/navigation.html" %}
+    {% endblock navigation %}
+
+    <div id="content" class="container-fluid">
+        {% block messages %}
+            {% include "timepiece/messages.html" %}
+        {% endblock messages %}
+
+        {% if user.is_authenticated %}
+            {% block breadcrumb %}
+                <ul class="breadcrumb">
+                    {% block crumbs %}
+                        <li><a href="{% url 'timepiece-entries' %}">Home</a></li>
+                    {% endblock crumbs %}
+                </ul>
+            {% endblock breadcrumb %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    {% block footer %}
+        <footer class="footer">
+            <div class="container-fluid">
+                <p class="pull-right">
+                    <a href="https://github.com/caktus/django-timepiece/">Source</a>
+                    |
+                    <a href="http://www.caktusgroup.com/">Caktus Group</a>
+                </p>
+            </div>
+        </footer>
+    {% endblock footer %}
+</body>
+
+</html>
